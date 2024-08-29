@@ -37,7 +37,14 @@ class BookController extends Controller
             'publisher_id' => 'required|integer',
             'published_year' => 'required|integer',
             'categories' => 'required|array',
+            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', 
         ]);
+
+        if ($request->hasFile("cover_image")) {
+            $imageName = time() . "." . $request->cover_image->extension();
+            $request->cover_image->move(public_path("img/books"), $imageName);
+            $validatedData["cover_image"] = $imageName;
+        }
 
         $book = Book::create($validatedData);
         $book->categories()->attach($request->categories);
