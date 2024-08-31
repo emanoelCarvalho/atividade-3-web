@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Book;
@@ -37,7 +38,7 @@ class BookController extends Controller
             'publisher_id' => 'required|integer',
             'published_year' => 'required|integer',
             'categories' => 'required|array',
-            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', 
+            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         if ($request->hasFile("cover_image")) {
@@ -69,18 +70,36 @@ class BookController extends Controller
             'publisher_id' => 'required|integer',
             'published_year' => 'required|integer',
             'categories' => 'required|array',
+            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $book = Book::findOrFail($id);
+
+        if ($request->hasFile('cover_image')) {
+            if ($book->cover_image && file_exists(public_path('img/books/' . $book->cover_image))) {
+                unlink(public_path('img/books/' . $book->cover_image));
+            }
+
+            $imageName = time() . '.' . $request->file('cover_image')->getClientOriginalExtension();
+            $request->file('cover_image')->move(public_path('img/books'), $imageName);
+            $validatedData['cover_image'] = $imageName;
+        }
+
         $book->update($validatedData);
         $book->categories()->sync($request->categories);
 
         return redirect()->route('books.index')->with('success', 'Livro atualizado com sucesso!');
     }
 
+
     public function destroy($id)
     {
         $book = Book::findOrFail($id);
+
+        if ($book->cover_image && file_exists(public_path('img/books/' . $book->cover_image))) {
+            unlink(public_path('img/books/' . $book->cover_image));
+        }
+
         $book->categories()->detach();
         $book->delete();
 

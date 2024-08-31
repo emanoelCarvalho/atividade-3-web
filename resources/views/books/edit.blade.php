@@ -3,13 +3,17 @@
 @section('content')
     <div class="container">
         <h1>Editar Livro</h1>
-        <form action="{{ route('books.update', $book->id) }}" method="POST">
+        <form action="{{ route('books.update', $book->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="mb-3">
                 <label for="title" class="form-label">Título</label>
                 <input type="text" class="form-control" id="title" name="title" value="{{ old('title', $book->title) }}" required>
             </div>
+            <div class="mb-3">
+                <label for="cover_image" class="form-label">Imagem da Capa</label>
+                <input type="file" class="form-control" id="cover_image" name="cover_image">
+            </div>            
             <div class="mb-3">
                 <label for="author_id" class="form-label">Autor</label>
                 <select class="form-select" id="author_id" name="author_id" required>
