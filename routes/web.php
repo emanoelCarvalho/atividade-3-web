@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Support\Facades\Route; // Add this line
 
 use App\Http\Controllers\BookController;
@@ -7,6 +6,9 @@ use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PublisherController;
 
+Route::get('/', function () {
+    return view('welcome');
+});
 // Rotas para Books
 Route::resource('books', BookController::class);
 
