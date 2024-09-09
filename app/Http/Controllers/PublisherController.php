@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Publisher;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class PublisherController extends Controller
 {
@@ -21,11 +23,13 @@ class PublisherController extends Controller
 
     public function create()
     {
+        Gate::authorize('librarian', User::class);
         return view('publishers.create');
     }
 
     public function store(Request $request)
     {
+        Gate::authorize('librarian', User::class);
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'address' => 'nullable|string|max:255',
@@ -38,12 +42,14 @@ class PublisherController extends Controller
 
     public function edit($id)
     {
+        Gate::authorize('librarian', User::class);
         $publisher = Publisher::findOrFail($id);
         return view('publishers.edit', compact('publisher'));
     }
 
     public function update(Request $request, $id)
     {
+        Gate::authorize('librarian', User::class);
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'address' => 'nullable|string|max:255',
@@ -57,6 +63,7 @@ class PublisherController extends Controller
 
     public function destroy($id)
     {
+        Gate::authorize('librarian', User::class);
         $publisher = Publisher::findOrFail($id);
         $publisher->delete();
 

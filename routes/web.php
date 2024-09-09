@@ -9,6 +9,11 @@ use App\Http\Controllers\PublisherController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
 // Rotas para Books
 Route::resource('books', BookController::class);
 

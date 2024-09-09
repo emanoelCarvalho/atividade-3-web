@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Author;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class AuthorController extends Controller
 {
@@ -21,11 +23,13 @@ class AuthorController extends Controller
 
     public function create()
     {
+        Gate::authorize('librarian', User::class);
         return view('authors.create');
     }
 
     public function store(Request $request)
     {
+        Gate::authorize('librarian', User::class);
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'birth_date' => 'nullable|date',
@@ -38,12 +42,14 @@ class AuthorController extends Controller
 
     public function edit($id)
     {
+        Gate::authorize('librarian', User::class);
         $author = Author::findOrFail($id);
         return view('authors.edit', compact('author'));
     }
 
     public function update(Request $request, $id)
     {
+        Gate::authorize('librarian', User::class);
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'birth_date' => 'nullable|date',
@@ -57,6 +63,7 @@ class AuthorController extends Controller
 
     public function destroy($id)
     {
+        Gate::authorize('librarian', User::class);
         $author = Author::findOrFail($id);
         $author->delete();
 

@@ -6,7 +6,9 @@ use App\Models\Book;
 use App\Models\Author;
 use App\Models\Publisher;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class BookController extends Controller
 {
@@ -24,6 +26,7 @@ class BookController extends Controller
 
     public function create()
     {
+        Gate::authorize('librarian', User::class);
         $authors = Author::all();
         $publishers = Publisher::all();
         $categories = Category::all();
@@ -32,6 +35,7 @@ class BookController extends Controller
 
     public function store(Request $request)
     {
+        Gate::authorize('librarian', User::class);   
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'author_id' => 'required|integer',
@@ -55,6 +59,7 @@ class BookController extends Controller
 
     public function edit($id)
     {
+        Gate::authorize('librarian', User::class);
         $book = Book::findOrFail($id);
         $authors = Author::all();
         $publishers = Publisher::all();
@@ -64,6 +69,7 @@ class BookController extends Controller
 
     public function update(Request $request, $id)
     {
+        Gate::authorize('librarian', User::class);
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'author_id' => 'required|integer',
@@ -94,6 +100,7 @@ class BookController extends Controller
 
     public function destroy($id)
     {
+        Gate::authorize('librarian', User::class);
         $book = Book::findOrFail($id);
 
         if ($book->cover_image && file_exists(public_path('img/books/' . $book->cover_image))) {

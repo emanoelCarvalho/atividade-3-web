@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class CategoryController extends Controller
 {
@@ -21,11 +23,13 @@ class CategoryController extends Controller
 
     public function create()
     {
+        Gate::authorize('librarian', User::class);
         return view('categories.create');
     }
 
     public function store(Request $request)
     {
+        Gate::authorize('librarian', User::class);
         $validatedData = $request->validate([
             'name' => 'required|string|max:255|unique:categories',
         ]);
@@ -37,12 +41,14 @@ class CategoryController extends Controller
 
     public function edit($id)
     {
+        Gate::authorize('librarian', User::class);
         $category = Category::findOrFail($id);
         return view('categories.edit', compact('category'));
     }
 
     public function update(Request $request, $id)
     {
+        Gate::authorize('librarian', User::class);
         $validatedData = $request->validate([
             'name' => 'required|string|max:255|unique:categories,name,' . $id,
         ]);
@@ -55,6 +61,7 @@ class CategoryController extends Controller
 
     public function destroy($id)
     {
+        Gate::authorize('librarian', User::class);
         $category = Category::findOrFail($id);
         $category->books()->detach();
         $category->delete();
