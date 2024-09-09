@@ -1,10 +1,12 @@
 <?php
+
 use Illuminate\Support\Facades\Route; // Add this line
 
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PublisherController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
@@ -14,6 +16,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('roles', RoleController::class);
 // Rotas para Books
 Route::resource('books', BookController::class);
 

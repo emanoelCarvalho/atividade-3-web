@@ -73,6 +73,20 @@
                                 <a class="dropdown-item" href="{{ route('publishers.create') }}">Adicionar Editora</a>
                             </div>
                         </li>
+
+                        <!-- Dropdown para Roles -->
+                        @if (Auth::check() && Auth::user()->role == 'admin')
+                            <li class="nav-item dropdown">
+                                <a id="rolesDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Regras
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="rolesDropdown">
+                                    <a class="dropdown-item" href="{{ route('roles.index') }}">Listar Regras</a>
+                                    <a class="dropdown-item" href="{{ route('roles.create') }}">Adicionar Regra</a>
+                                </div>
+                            </li>
+                        @endif
+                        
                     </ul>
         
                     <!-- Right Side Of Navbar -->

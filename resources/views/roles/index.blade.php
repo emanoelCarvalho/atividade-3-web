@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <h1>Lista de Usuários</h1>
-        <a href="{{ route('publishers.create') }}" class="btn btn-primary mb-3">Adicionar Nova Editora</a>
+        <a href="{{ route('publishers.create') }}" class="btn btn-primary mb-3">Adicionar Nova Regra</a>
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -17,7 +17,8 @@
                 @foreach ($users as $user)
                     <tr>
                         <td>{{ $user->name }}</td>
-                        <td>{{ $user->address }}</td>
+                        <td>{{ $user->email }}</td>
+                        <td>{{ $user->role }}</td>
                         <td>
                             <a href="{{ route('roles.edit', $user->id) }}" class="btn btn-warning">Editar</a>
                             </form>
