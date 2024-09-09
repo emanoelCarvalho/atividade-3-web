@@ -20,7 +20,6 @@ class RoleController extends Controller
     public function edit(User $user)
     {
         Gate::authorize('admin', User::class);
-        $user =  User::findOrFail($user->id);
         return view('roles.edit', compact('user'));
     }
 
@@ -31,6 +30,8 @@ class RoleController extends Controller
         $validatedData = request()->validate([
             'role' => 'required|string|in:admin,librarian,cliente',
         ]);
+
+        // dd($validatedData);
 
         $user->update($validatedData);
 

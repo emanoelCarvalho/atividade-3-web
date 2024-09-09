@@ -17,7 +17,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::resource('roles', RoleController::class);
+Route::resource('roles', RoleController::class)->parameters(['roles' => 'user']);
 // Rotas para Books
 Route::resource('books', BookController::class);
 

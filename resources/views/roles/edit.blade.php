@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <h1>Editar Regra</h1>
-        <form action="{{ route('roles.update', $user->id) }}" method="POST">
+        <form action="{{ route('roles.update', $user) }}" method="POST">
             @csrf
             @method('PUT')
             <div class="mb-3">
