@@ -21,11 +21,11 @@ class UserPolicy
 
     public function librarian(User $user)
     {
-        return $user->role === 'librarian';
+        return $user->role === 'librarian' || $user->role === 'admin';
     }
 
     public function client(User $user)
     {
-        return $user->role === 'cliente';
+        return $user->role === 'cliente' || $user->role === 'librarian' || $user->role === 'admin';
     }
 }
