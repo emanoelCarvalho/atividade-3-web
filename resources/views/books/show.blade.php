@@ -13,11 +13,20 @@
             @endforeach
         </p>
         <a href="{{ route('books.index') }}" class="btn btn-primary">Voltar à Lista</a>
+        @can('admin', App\Models\User::class)
         <a href="{{ route('books.edit', $book->id) }}" class="btn btn-warning">Editar</a>
         <form action="{{ route('books.destroy', $book->id) }}" method="POST" style="display:inline-block;">
             @csrf
             @method('DELETE')
             <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir este livro?')">Excluir</button>
         </form>
+        @elsecan('librarian', App\Models\User::class)
+        <a href="{{ route('books.edit', $book->id) }}" class="btn btn-warning">Editar</a>
+        <form action="{{ route('books.destroy', $book->id) }}" method="POST" style="display:inline-block;">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir este livro?')">Excluir</button>
+        </form>
+        @endcan
     </div>
 @endsection
