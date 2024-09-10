@@ -37,4 +37,13 @@ class RoleController extends Controller
 
         return redirect()->route('roles.index')->with('success', 'Função atualizada com sucesso!');
     }
+
+    public function destroy(User $user)
+    {
+        Gate::authorize('admin', User::class);
+
+        $user->delete();
+
+        return redirect()->route('roles.index')->with('success', 'Usuário deletado com sucesso!');
+    }
 }

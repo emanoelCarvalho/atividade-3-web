@@ -3,7 +3,11 @@
 @section('content')
     <div class="container">
         <h1>Lista de Categorias</h1>
+        @can('admin', App\Models\User::class)
         <a href="{{ route('categories.create') }}" class="btn btn-primary mb-3">Adicionar Nova Categoria</a>
+        @elsecan('librarian', App\Models\User::class)
+        <a href="{{ route('categories.create') }}" class="btn btn-primary mb-3">Adicionar Nova Categoria</a>
+        @endcan
         <table class="table table-bordered">
             <thead>
                 <tr>

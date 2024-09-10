@@ -3,7 +3,11 @@
 @section('content')
     <div class="container">
         <h1>Lista de Editoras</h1>
+        @can('admin', App\Models\User::class)
         <a href="{{ route('publishers.create') }}" class="btn btn-primary mb-3">Adicionar Nova Editora</a>
+        @elsecan('librarian', App\Models\User::class)
+        <a href="{{ route('publishers.create') }}" class="btn btn-primary mb-3">Adicionar Nova Editora</a>
+        @endcan
         <table class="table table-bordered">
             <thead>
                 <tr>

@@ -3,7 +3,11 @@
 @section('content')
     <div class="container">
         <h1>Lista de Livros</h1>
+        @can('admin', App\Models\User::class)
         <a href="{{ route('books.create') }}" class="btn btn-primary mb-3">Adicionar Novo Livro</a>
+        @elsecan('librarian', App\Models\User::class)
+        <a href="{{ route('books.create') }}" class="btn btn-primary mb-3">Adicionar Novo Livro</a>
+        @endcan
         <table class="table table-bordered">
             <thead>
                 <tr>

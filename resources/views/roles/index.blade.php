@@ -20,6 +20,10 @@
                         <td>{{ $user->role }}</td>
                         <td>
                             <a href="{{ route('roles.edit', $user->id) }}" class="btn btn-warning">Editar</a>
+                            <form action="{{ route('roles.destroy', $user->id) }}" method="POST" style="display:inline-block;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir este usuário?')">Excluir</button>
                             </form>
                         </td>
                     </tr>
