@@ -3,13 +3,12 @@
 @section('content')
     <div class="container">
         <h1>Lista de Usuários</h1>
-        <a href="{{ route('publishers.create') }}" class="btn btn-primary mb-3">Adicionar Nova Regra</a>
         <table class="table table-bordered">
             <thead>
                 <tr>
                     <th>Nome</th>
                     <th>Email</th>
-                    <th>roles</th>
+                    <th>Roles</th>
                     <th>Ações</th>
                 </tr>
             </thead>

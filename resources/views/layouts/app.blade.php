@@ -78,11 +78,10 @@
                         @if (Auth::check() && Auth::user()->role == 'admin')
                             <li class="nav-item dropdown">
                                 <a id="rolesDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Regras
+                                    Users(Roles)
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="rolesDropdown">
-                                    <a class="dropdown-item" href="{{ route('roles.index') }}">Listar Regras</a>
-                                    <a class="dropdown-item" href="{{ route('roles.create') }}">Adicionar Regra</a>
+                                    <a class="dropdown-item" href="{{ route('roles.index') }}">Listar Users</a>
                                 </div>
                             </li>
                         @endif
