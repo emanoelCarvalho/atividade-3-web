@@ -8,7 +8,14 @@
             @method('PUT')
             <div class="mb-3">
                 <label for="role" class="form-label">Role</label>
-                <input type="text" class="form-control" id="role" name="role" value="{{ old('role', $user->role) }}" required>
+
+                <select class="form-select" name="role" id="role">
+                    <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
+                    <option value="client" {{ $user->role == 'client' ? 'selected' : '' }}>User</option>
+                    <option value="librarian" {{ $user->role == 'librarian' ? 'selected' : '' }}>Bibliotecário</option>
+                    
+                </select>
+
             </div>
             <button type="submit" class="btn btn-primary">Salvar Alterações</button>
             <a href="{{ route('roles.index') }}" class="btn btn-secondary">Cancelar</a>
